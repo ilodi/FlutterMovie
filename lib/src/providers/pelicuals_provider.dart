@@ -21,8 +21,8 @@ class PeliculasProvider {
     //Crear un mapa de un json para ser usadon en dart
     final decodedData = json.decode(resp.body);
 
-    print(decodedData);
+    final peliculas = new Peliculas.fromJsonList(decodedData['results']);
 
-    return [];
+    return peliculas.items;
   }
 }
