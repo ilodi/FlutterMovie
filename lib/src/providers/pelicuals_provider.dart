@@ -11,16 +11,18 @@ class PeliculasProvider {
 
 //Method
   Future<List<Pelicula>> getEnCines() async {
-    final url = Uri.https(_url, '3/movie/now_playing',
-        {'api_hey': _apiKey, 'language': _language});
+    final url = Uri.https(_url, '3/movie/now_playing', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
 
     final resp = await http.get(url);
 
-   //Crear un mapa de un json para ser usadon en dart
+    //Crear un mapa de un json para ser usadon en dart
     final decodedData = json.decode(resp.body);
 
     print(decodedData);
 
-    return[];
+    return [];
   }
 }
