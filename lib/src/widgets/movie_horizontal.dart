@@ -5,7 +5,6 @@ class MovieHorizontal extends StatelessWidget {
   final List<Pelicula> peliculas;
 
   //definirlo en el constructor
-
   MovieHorizontal({@required this.peliculas});
 
   @override

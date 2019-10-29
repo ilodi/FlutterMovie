@@ -75,7 +75,6 @@ class HomePage extends StatelessWidget {
                 return MovieHorizontal(peliculas: snapshot.data);
               } else {
                 return Container(
-                  height: 400.0,
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
