@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Peliculas',
+      title: 'Peliculas Flutter',
      initialRoute: '/',
      routes: {
        '/' : (BuildContext context) => HomePage(),

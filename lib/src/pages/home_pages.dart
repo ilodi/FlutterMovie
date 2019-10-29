@@ -10,8 +10,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Peliculas en cines'),
-        backgroundColor: Colors.indigoAccent,
+        title: Text('Peliculas en cines!!!'),
+        backgroundColor: Colors.cyan,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -21,8 +21,10 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             _swiperTarjetas(),
+            _footer(context),
           ],
         ),
       ),
@@ -34,18 +36,42 @@ class HomePage extends StatelessWidget {
       future: peliculasProvider.getEnCines(),
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
+          //
           return CardSwiper(
             peliculas: snapshot.data,
           );
         } else {
           return Container(
-              height: 400.0,
+            height: 400.0,
             child: Center(
               child: CircularProgressIndicator(),
             ),
           );
         }
       },
+    );
+  }
+
+  Widget _footer(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          Text('Populares', style: Theme.of(context).textTheme.subhead),
+          FutureBuilder(
+            future: peliculasProvider.getPopulares(),
+            builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+              if (snapshot.hasData) {
+                //
+                 
+                 snapshot.data.forEach((p)=> print(p.title));
+                return Container(
+                );
+              } else {}
+            },
+          )
+        ],
+      ),
     );
   }
 }
