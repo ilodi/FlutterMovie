@@ -15,6 +15,8 @@ class Peliculas {
 }
 
 class Pelicula {
+  String uniqueId;
+
   double popularity;
   int voteCount;
   bool video;
@@ -59,7 +61,7 @@ class Pelicula {
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     genreIds = json['genre_ids'].cast<int>();
-    title = json['title']; 
+    title = json['title'];
     voteAverage = json['vote_average'] / 1;
     overview = json['overview'];
     releaseDate = json['release_date'];
@@ -67,18 +69,18 @@ class Pelicula {
 
   //NEW method
   getPosterImg() {
-    if( posterPath == null ){
-       return 'http://dartdoc.takyam.com/logos/dart-logo-wordmark.svg';
-    }else{
+    if (posterPath == null) {
+      return 'http://dartdoc.takyam.com/logos/dart-logo-wordmark.svg';
+    } else {
       return 'https://image.tmdb.org/t/p/w500/$posterPath';
     }
   }
 
   //get Back
-    getBackgroundImg() {
-    if( posterPath == null ){
-       return 'http://dartdoc.takyam.com/logos/dart-logo-wordmark.svg';
-    }else{
+  getBackgroundImg() {
+    if (posterPath == null) {
+      return 'http://dartdoc.takyam.com/logos/dart-logo-wordmark.svg';
+    } else {
       return 'https://image.tmdb.org/t/p/w500/$backdropPath';
     }
   }
