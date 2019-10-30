@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
+import 'package:peliculas/src/providers/pelicuals_provider.dart';
 
 class PeliculaDetalle extends StatelessWidget {
   @override
@@ -18,14 +20,14 @@ class PeliculaDetalle extends StatelessWidget {
               ),
               _posterTitulo(context, pelicula),
               _descripcion(pelicula),
-             _descripcion(pelicula),
               _descripcion(pelicula),
-               _descripcion(pelicula),
-                _descripcion(pelicula),
-                 _descripcion(pelicula),
-                  _descripcion(pelicula),
+              _descripcion(pelicula),
+              _descripcion(pelicula),
+              _descripcion(pelicula),
+              _descripcion(pelicula),
+              _descripcion(pelicula),
+              _crearCsting(pelicula),
             ]),
-
           ),
         ],
       ),
@@ -46,11 +48,10 @@ class PeliculaDetalle extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
         background: FadeInImage(
-          image: NetworkImage(pelicula.getBackgroundImg()),
-          placeholder: AssetImage('assets/img/no-image.jpg'),
-          fit: BoxFit.cover,
-          fadeInDuration: Duration(microseconds: 150),
-        ),
+            image: NetworkImage(pelicula.getBackgroundImg()),
+            placeholder: AssetImage('assets/img/no-image.jpg'),
+            fit: BoxFit.cover,
+            fadeInDuration: Duration(microseconds: 200)),
       ),
     );
   }
@@ -86,8 +87,14 @@ class PeliculaDetalle extends StatelessWidget {
                 ),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.star_border, color: Colors.yellow,),
-                    Text(pelicula.voteAverage.toString(), style: Theme.of(context).textTheme.subhead,),
+                    Icon(
+                      Icons.star_border,
+                      color: Colors.yellow,
+                    ),
+                    Text(
+                      pelicula.voteAverage.toString(),
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
                   ],
                 ),
               ],
@@ -98,15 +105,64 @@ class PeliculaDetalle extends StatelessWidget {
     );
   }
 
-  Widget _descripcion(Pelicula pelicula){
+  Widget _descripcion(Pelicula pelicula) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(
         pelicula.overview,
         textAlign: TextAlign.justify,
-        ),
+      ),
     );
   }
 
+  Widget _crearCsting(Pelicula pelicula) {
+    final peliProvider = new PeliculasProvider();
 
+    return FutureBuilder(
+      future: peliProvider.getCast(pelicula.id.toString()),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return _crearActoresPagesView(snapshot.data);
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _crearActoresPagesView(List<Actor> actores) {
+    return SizedBox(
+      height: 200.0,
+      child: PageView.builder(
+          pageSnapping: false,
+          scrollDirection:Axis.horizontal,
+          controller: PageController(viewportFraction: 0.3, initialPage: 1),
+          itemCount: actores.length,
+          itemBuilder: (context, i) => _actorTarjeta(actores[i])),
+    );
+  }
+
+  Widget _actorTarjeta(Actor actor) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: FadeInImage(
+              image: NetworkImage(actor.getFoto()),
+              placeholder: AssetImage('assets/img/no-image.jpg'),
+              height: 150.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Text(
+            actor.name,
+            overflow: TextOverflow.ellipsis,
+            ),
+        ],
+      ),
+    );
+  }
 }
