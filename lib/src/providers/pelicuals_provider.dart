@@ -55,11 +55,6 @@ class PeliculasProvider {
 
   //Method Populares
   Future<List<Pelicula>> getPopulares() async {
-
-    if(_cargando) return [];
-
-
-    _cargando = true;
     
     _popularesPages++;
 

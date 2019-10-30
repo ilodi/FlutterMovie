@@ -73,4 +73,13 @@ class Pelicula {
       return 'https://image.tmdb.org/t/p/w500/$posterPath';
     }
   }
+
+  //get Back
+    getBackgroundImg() {
+    if( posterPath == null ){
+       return 'http://dartdoc.takyam.com/logos/dart-logo-wordmark.svg';
+    }else{
+      return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+    }
+  }
 }
